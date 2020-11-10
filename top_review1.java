@@ -33,7 +33,7 @@ import org.slf4j.LoggerFactory;
  * This Map-Reduce code will go through every Amazon review in rfox12:reviews
  * It will then output data on the top-level JSON keys
  */
-public class AmazonReviewAnalyzeFields extends Configured implements Tool {
+public class top_review extends Configured implements Tool {
 	// Just used for logging
 	protected static final Logger LOG = LoggerFactory.getLogger(AmazonReviewAnalyzeFields.class);
 
@@ -50,7 +50,7 @@ public class AmazonReviewAnalyzeFields extends Configured implements Tool {
 		}
 
 		// Now we create and configure a map-reduce "job"     
-		Job job = Job.getInstance(getConf(), "AmazonReviewAnalyzeFields");
+		Job job = Job.getInstance(getConf(), "top_review");
 		job.setJarByClass(AmazonReviewAnalyzeFields.class);
     
     		// By default we are going to can every row in the table
@@ -96,7 +96,7 @@ public class AmazonReviewAnalyzeFields extends Configured implements Tool {
 		@Override
 		protected void setup(Context context) {
 			parser = new JsonParser();
-			rowsProcessed = context.getCounter("AmazonReviewAnalyzeFields", "Rows Processed");
+			rowsProcessed = context.getCounter("top_review", "Rows Processed");
     		}
   
   		// This "map" method is called with every row scanned.  
