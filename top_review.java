@@ -111,8 +111,8 @@ public class top_review extends Configured implements Tool {
                                 
 				JsonObject jsonObject = jsonTree.getAsJsonObject();
 				
-                                String reviewer = jsonObject.get("reviewerID","reviewerName").getAsString();
-                                context.write(new Text(reviewer),one);
+                                String reviewerID = jsonObject.get("reviewerID").getAsString();
+                                context.write(new Text(reviewerID),one);
 				
 				
 				/*// Now we'll iterate through every top-level "key" in the JSON structure...
