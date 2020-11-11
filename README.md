@@ -9,13 +9,13 @@ step 3:
 Make a "build" directory: mkdir build
 
 step 4:
-Compile the java code javac -cp /opt/cloudera/parcels/CDH/lib/hadoop/client/*:/opt/cloudera/parcels/CDH/lib/hbase/* top-review.java -d build -Xlint
+Compile the java code javac -cp /opt/cloudera/parcels/CDH/lib/hadoop/client/*:/opt/cloudera/parcels/CDH/lib/hbase/* top_review.java -d build -Xlint
 
 step 5:
  wrap up our code into a Java "jar" file: jar -cvf reviews.jar -C build/ .
  
 step 6:
-Now we execute the map-reduce job: HADOOP_CLASSPATH=$(hbase mapredcp):/etc/hbase/conf hadoop jar reviews.jar top-review '/user/rgummad1/review_fields'
+Now we execute the map-reduce job: HADOOP_CLASSPATH=$(hbase mapredcp):/etc/hbase/conf hadoop jar reviews.jar top_review '/user/rgummad1/review_fields'
 if needed remove the output that alreadt exists using : hadoop fs -rm -r /user/rgummad1/review_fields
 
 step 7: 
