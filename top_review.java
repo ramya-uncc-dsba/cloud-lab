@@ -108,9 +108,12 @@ public class top_review extends Configured implements Tool {
 				
 				// Now we parse the string into a JsonElement so we can dig into it
 				JsonElement jsonTree = parser.parse(jsonString);
-
-                                String reviewerID = JsonObject.get("reviewerID").getAsString();
-                                context.write(new Text(reviewerID),one);
+                                
+				JsonObject jsonObject = jsonTree.getAsJsonObject();
+				
+                                String reviewer = jsonObject.get("reviewerID","reviewerName").getAsString();
+                                context.write(new Text(reviewer),one);
+				
 				
 				/*// Now we'll iterate through every top-level "key" in the JSON structure...
 				for (Map.Entry<String, JsonElement> entry : jsonTree.getAsJsonObject().entrySet()) {
