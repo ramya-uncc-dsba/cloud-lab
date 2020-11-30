@@ -51,7 +51,7 @@ public class image_review extends Configured implements Tool {
 
 		// Now we create and configure a map-reduce "job"     
 		Job job = Job.getInstance(getConf(), "image_review");
-		job.setJarByClass(top_review.class);
+		job.setJarByClass(image_review.class);
     
     		// By default we are going to can every row in the table
 		Scan scan = new Scan();
@@ -111,7 +111,6 @@ public class image_review extends Configured implements Tool {
                                 
 				JsonObject jsonObject = jsonTree.getAsJsonObject();
 				
-                                //string image = jsonObject.get("image").getAsString();
                                 String overall= jsonObject.get("overall").getAsString();
 	                        String s1= "1.0";
                                 String s2= "2.0";
