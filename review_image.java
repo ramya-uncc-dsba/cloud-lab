@@ -33,13 +33,13 @@ import org.slf4j.LoggerFactory;
  * This Map-Reduce code will go through every Amazon review in rfox12:reviews
  * It will then output data on the top-level JSON keys
  */
-public class positive_review extends Configured implements Tool {
+public class review_image extends Configured implements Tool {
 	// Just used for logging
-	protected static final Logger LOG = LoggerFactory.getLogger(positive_review.class);
+	protected static final Logger LOG = LoggerFactory.getLogger(review_image.class);
 
 	// This is the execution entry point for Java programs
 	public static void main(String[] args) throws Exception {
-		int res = ToolRunner.run(HBaseConfiguration.create(), new positive_review(), args);
+		int res = ToolRunner.run(HBaseConfiguration.create(), new review_image(), args);
 		System.exit(res);
 	}
 
@@ -50,8 +50,8 @@ public class positive_review extends Configured implements Tool {
 		}
 
 		// Now we create and configure a map-reduce "job"     
-		Job job = Job.getInstance(getConf(), "positive_review");
-		job.setJarByClass(positive_review.class);
+		Job job = Job.getInstance(getConf(), "review_image");
+		job.setJarByClass(review_image.class);
     
     		// By default we are going to can every row in the table
 		Scan scan = new Scan();
@@ -96,7 +96,7 @@ public class positive_review extends Configured implements Tool {
 		@Override
 		protected void setup(Context context) {
 			parser = new JsonParser();
-			rowsProcessed = context.getCounter("positive_review", "Rows Processed");
+			rowsProcessed = context.getCounter("review_image", "Rows Processed");
     		}
   
   		// This "map" method is called with every row scanned.  
@@ -119,28 +119,58 @@ public class positive_review extends Configured implements Tool {
                                 //System.out.println("overall value:"+ overall);
                                 //System.out.println("s1="+ s1);
                                 //System.out.println("s2="+ s2);
-                                if (overall.equals(s1))
-                                { 
-                               		//System.out.println("Positive:"+ overall); 
-					context.write(new Text("Negative"),one);
-                                }
-                                else if (overall.equals(s2))
-                                {
-                                	//System.out.println("Negative:"+ overall);
-					context.write(new Text("Negative"),one);
-                                }
-                                else if (overall.equals(s3))
-                                {
-                                	//System.out.println("nothing");
-					context.write(new Text("Positive"),one);
-                                }
-				else if (overall.equals(s4))
-                                {
-                               		context.write(new Text("Positive"),one);
-                                }
+                                if (image.trim().isEmpty())
+				{
+                                	if (overall.equals(s1))
+                                	{ 
+                               			//System.out.println("Positive:"+ overall); 
+						context.write(new Text("No_image_Negative"),one);
+                               		 }
+                               		 else if (overall.equals(s2))
+                                	 {
+                                		//System.out.println("Negative:"+ overall);
+						context.write(new Text("No_image_Negative"),one);
+                                	 }
+                                	 else if (overall.equals(s3))
+                                	 {
+                                		//System.out.println("nothing");
+						context.write(new Text("No_image_Positive"),one);
+                               		 }
+					 else if (overall.equals(s4))
+                                	 {
+                               			context.write(new Text("No_image_Positive"),one);
+                               		 }
+					 else
+					 {
+						context.write(new Text("No_image_Average"),one);
+					 }
+    
+				}
 				else
 				{
-					context.write(new Text("Average"),one);
+					if (overall.equals(s1))
+                                	{ 
+                               			//System.out.println("Positive:"+ overall); 
+						context.write(new Text("Image_Negative"),one);
+                               		 }
+                               		 else if (overall.equals(s2))
+                                	 {
+                                		//System.out.println("Negative:"+ overall);
+						context.write(new Text("Image_Negative"),one);
+                                	 }
+                                	 else if (overall.equals(s3))
+                                	 {
+                                		//System.out.println("nothing");
+						context.write(new Text("Image_Positive"),one);
+                               		 }
+					 else if (overall.equals(s4))
+                                	 {
+                               			context.write(new Text("Image_Positive"),one);
+                               		 }
+					 else
+					 {
+						context.write(new Text("Image_Average"),one);
+					 }
 				}
     
 				
