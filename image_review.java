@@ -111,20 +111,17 @@ public class top_review extends Configured implements Tool {
                                 
 				JsonObject jsonObject = jsonTree.getAsJsonObject();
 				
-        String image = jsonObject.get("image").getAsString();
-        string overall= jsonObject.get("overall").getAsString();
-        if (image.isEmpty()) {
-                             context.write(new Text("Empty"),one); 
+                                string image = jsonObject.get("image").getAsString();
+                                string overall= jsonObject.get("overall").getAsString();
+	                     if (image == null || str.isEmpty())
+			     {
+                             	context.write(new Text("NULL"),one); 
                              } 
-                             else if (image.isNull())
-                             {
-                             context.write(new Text("NULL"),one);
-                              }
-                             else if overall == '1'  or '2'
+                             else if (overall == 1 || 2)
                              {
                               context.write(new Text("negative"),one);
                              }
-                             else if overall =='4' or '5'
+                             else if (overall == 4 || 5)
                              {
                                context.write(new Text("Positive"),one);
                              }
