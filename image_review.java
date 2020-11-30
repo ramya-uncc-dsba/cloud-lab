@@ -111,20 +111,34 @@ public class top_review extends Configured implements Tool {
                                 
 				JsonObject jsonObject = jsonTree.getAsJsonObject();
 				
-                                string image = jsonObject.get("image").getAsString();
-                                string overall= jsonObject.get("overall").getAsString();
-	                     if (image == null || str.isEmpty())
-			     {
-                             	context.write(new Text("NULL"),one); 
-                             } 
-                             else if (overall == 1 || 2)
-                             {
-                              context.write(new Text("negative"),one);
-                             }
-                             else if (overall == 4 || 5)
-                             {
-                               context.write(new Text("Positive"),one);
-                             }
+                                //string image = jsonObject.get("image").getAsString();
+                                String overall= jsonObject.get("overall").getAsString();
+	                        String s1= "1.0";
+                                String s2= "2.0";
+				String s3= "3.0";
+				String s4= "4.0";
+                                //System.out.println("overall value:"+ overall);
+                                //System.out.println("s1="+ s1);
+                                //System.out.println("s2="+ s2);
+                                if (overall.equals(s1))
+                                { 
+                               		//System.out.println("Positive:"+ overall); 
+					context.write(new Text("Negative"),one);
+                                }
+                                else if (overall.equals(s2))
+                                {
+                                	//System.out.println("Negative:"+ overall);
+					context.write(new Text("Negative"),one);
+                                }
+                                else if (overall.equals(s3))
+                                {
+                                	//System.out.println("nothing");
+					context.write(new Text("Positive"),one);
+                                }
+				else if (overall.equals(s4))
+                                {
+                               		context.write(new Text("Positive"),one);
+                                }
     
 				
 				
