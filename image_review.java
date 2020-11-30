@@ -110,7 +110,7 @@ public class positive_review extends Configured implements Tool {
 				JsonElement jsonTree = parser.parse(jsonString);
                                 
 				JsonObject jsonObject = jsonTree.getAsJsonObject();
-				
+				String overall= jsonObject.get("image").getAsString();
                                 String overall= jsonObject.get("overall").getAsString();
 	                        String s1= "1.0";
                                 String s2= "2.0";
@@ -119,32 +119,59 @@ public class positive_review extends Configured implements Tool {
                                 //System.out.println("overall value:"+ overall);
                                 //System.out.println("s1="+ s1);
                                 //System.out.println("s2="+ s2);
-                                if (overall.equals(s1))
-                                { 
-                               		//System.out.println("Positive:"+ overall); 
-					context.write(new Text("Negative"),one);
-                                }
-                                else if (overall.equals(s2))
-                                {
-                                	//System.out.println("Negative:"+ overall);
-					context.write(new Text("Negative"),one);
-                                }
-                                else if (overall.equals(s3))
-                                {
-                                	//System.out.println("nothing");
-					context.write(new Text("Positive"),one);
-                                }
-				else if (overall.equals(s4))
-                                {
-                               		context.write(new Text("Positive"),one);
-                                }
+				if (image.trim().isEmpty())
+				{
+                                	if (overall.equals(s1))
+                                	{ 
+                               			//System.out.println("Positive:"+ overall); 
+						context.write(new Text("No_image_Negative"),one);
+                               		 }
+                               		 else if (overall.equals(s2))
+                                	 {
+                                		//System.out.println("Negative:"+ overall);
+						context.write(new Text("No_image_Negative"),one);
+                                	 }
+                                	 else if (overall.equals(s3))
+                                	 {
+                                		//System.out.println("nothing");
+						context.write(new Text("No_image_Positive"),one);
+                               		 }
+					 else if (overall.equals(s4))
+                                	 {
+                               			context.write(new Text("No_image_Positive"),one);
+                               		 }
+					 else
+					 {
+						context.write(new Text("No_image_Average"),one);
+					 }
+    
+				}
 				else
 				{
-					context.write(new Text("Average"),one);
+					if (overall.equals(s1))
+                                	{ 
+                               			//System.out.println("Positive:"+ overall); 
+						context.write(new Text("Image_Negative"),one);
+                               		 }
+                               		 else if (overall.equals(s2))
+                                	 {
+                                		//System.out.println("Negative:"+ overall);
+						context.write(new Text("Image_Negative"),one);
+                                	 }
+                                	 else if (overall.equals(s3))
+                                	 {
+                                		//System.out.println("nothing");
+						context.write(new Text("Image_Positive"),one);
+                               		 }
+					 else if (overall.equals(s4))
+                                	 {
+                               			context.write(new Text("Image_Positive"),one);
+                               		 }
+					 else
+					 {
+						context.write(new Text("Image_Average"),one);
+					 }
 				}
-    
-				
-				
 				/*// Now we'll iterate through every top-level "key" in the JSON structure...
 				for (Map.Entry<String, JsonElement> entry : jsonTree.getAsJsonObject().entrySet()) {
 					// When we write to "context" we're passing data to the reducer
