@@ -1,4 +1,4 @@
-# cloud-top-review-lab
+# cloud-review-lab
 step 1: 
 git clone https://github.com/rgummad1/cloud-top-review-lab to clone this repository
 
