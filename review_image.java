@@ -148,44 +148,8 @@ public class review_image extends Configured implements Tool {
 						context.write(new Text("Average"),one);
 						//System.out.println("average"+ overall);
 					}
-					}else
-					{
-					String overall= jsonObject.get("overall").getAsString();
-	            			String s1= "1.0";
-               				String s2= "2.0";
-					String s3= "3.0";
-					String s4= "4.0";
-					String s5= "5.0";
-			
-                                	//System.out.println("overall value:"+ overall);
-                                	//System.out.println("s1="+ s1);
-                                	//System.out.println("s2="+ s2);
-                                	if (overall.equals(s1))
-                                	{ 
-                               			//System.out.println("no_negative:"+ overall); 
-						context.write(new Text("No_image_Negative"),one);
-                                	}
-                                	else if (overall.equals(s2))
-                                	{
-                                		System.out.println("No_image_Negative:"+ overall);
-						//context.write(new Text("Negative"),one);
-                               		 }
-                                	else if (overall.equals(s4))
-                                	{
-                                		//System.out.println("No_image_positive"+ overall);
-						context.write(new Text("No_image_Positive"),one);
-                               		 }
-					else if (overall.equals(s5))
-                                	{
-                               			context.write(new Text("No_image_Positive"),one);
-                               			//System.out.println("_Positive"+ overall);
-                               		 }
-					else
-					{
-						context.write(new Text("No_image_Average"),one);
-						//System.out.println("no_average"+ overall);
 					}
-				}
+					
     
 				
 				
