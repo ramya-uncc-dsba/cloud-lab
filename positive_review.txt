@@ -1,0 +1,3 @@
+Positive        2383
+Negative      3438
+Average        4179
