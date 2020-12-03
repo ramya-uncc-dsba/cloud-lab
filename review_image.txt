@@ -1,0 +1,3 @@
+Positive	1051324
+Negative	253330
+Average	90824
